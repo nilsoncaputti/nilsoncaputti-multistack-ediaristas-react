@@ -1,6 +1,7 @@
 import { ThemeProvider } from '@material-ui/core';
 import '@styles/globals.css';
 import { AppContainer } from '@styles/pages/_app.styled';
+import { MainProvider } from 'data/contexts/MainContext';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
@@ -8,7 +9,7 @@ import Footer from 'ui/components/surfaces/Footer/Footer';
 import Header from 'ui/components/surfaces/Header/Header';
 import theme from 'ui/themes/theme';
 
-function MyApp({ Component, pageProps }: AppProps) {
+function App({ Component, pageProps }: AppProps) {
     const [myTheme, setMyTheme] = useState(theme);
 
     useEffect(() => {
@@ -38,4 +39,12 @@ function MyApp({ Component, pageProps }: AppProps) {
     );
 }
 
-export default MyApp;
+const AppProviderContainer: React.FC<AppProps> = (props) => {
+    return (
+        <MainProvider>
+            <App {...props}/>
+        </MainProvider>
+    )
+};
+
+export default AppProviderContainer;

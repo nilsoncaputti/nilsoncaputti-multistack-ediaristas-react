@@ -3,7 +3,7 @@ import {
     CidadeInterface,
     EstadoInterface,
 } from 'data/@types/EnderecoInterface';
-import { ApiService } from './ApiServices';
+import { ApiService } from './ApiService';
 
 export const LocationService = {
     estados(): EstadoInterface[] {

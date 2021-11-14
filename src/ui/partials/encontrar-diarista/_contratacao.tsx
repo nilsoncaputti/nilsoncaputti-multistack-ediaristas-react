@@ -1,4 +1,4 @@
-import { Box, Button, Paper, Typography } from '@material-ui/core';
+import { Box, Button, CircularProgress, Container, Paper, Typography } from '@material-ui/core';
 import useContratacao from 'data/hooks/pages/useContratacao.page';
 import useIsMobile from 'data/hooks/useIsMobile';
 import React from 'react';
@@ -13,6 +13,7 @@ import DetalhesServico from './_detalhes-servico';
 import CadastroCliente, { LoginCliente } from './_cadastro-cliente';
 import InformacoesPagamento from './_informacoes-pagamento';
 import Link from 'ui/components/navigation/Link/Link';
+import { textAlign } from '@material-ui/system';
 
 // import { Component } from './_contratacao.styled';
 
@@ -35,6 +36,14 @@ const Contratacao: React.FC = () => {
             setHasLogin,
             loginError,
         } = useContratacao();
+
+    if (!servicos || servicos.length < 1) {
+        return (
+            <Container sx={{textAlign: 'center', my: 10}}>
+                <CircularProgress/>
+            </Container>
+        );
+    }
 
     return (
         <div>

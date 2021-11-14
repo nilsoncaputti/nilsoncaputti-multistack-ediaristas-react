@@ -8,6 +8,8 @@ import TextFieldMask from '../../TextFieldMask/TextFieldMask';
 
 export const AddressForm = () => {
     const {
+        user,
+        userAddress,
         control,
         errors,
         estados,
@@ -20,7 +22,7 @@ export const AddressForm = () => {
         <AddressData>
             <Controller
                 name={'endereco.cep'}
-                defaultValue={''}
+                defaultValue={userAddress.cep}
                 control={control}
                 render={({ field: { ref, ...inputProps }}) => (
                     <TextFieldMask
@@ -37,7 +39,7 @@ export const AddressForm = () => {
 
             <Controller
                 name={'endereco.estado'}
-                defaultValue={''}
+                defaultValue={userAddress.estado}
                 control={control}
                 render={({ field: { ref, ...inputProps }}) => (
                     <Select
@@ -60,7 +62,7 @@ export const AddressForm = () => {
 
             <Controller
                 name={'endereco.cidade'}
-                defaultValue={''}
+                defaultValue={userAddress.cidade}
                 control={control}
                 render={({ field: { ref, ...inputProps }}) => (
                     <Autocomplete
@@ -88,7 +90,7 @@ export const AddressForm = () => {
 
             <Controller
                 name={'endereco.bairro'}
-                defaultValue={''}
+                defaultValue={userAddress.bairro}
                 control={control}
                 render={({ field: { ref, ...inputProps } }) => (
                     <TextField
@@ -103,7 +105,7 @@ export const AddressForm = () => {
 
             <Controller
                 name={'endereco.logradouro'}
-                defaultValue={''}
+                defaultValue={userAddress.logradouro}
                 control={control}
                 render={({ field: { ref, ...inputProps } }) => (
                     <TextField
@@ -119,7 +121,7 @@ export const AddressForm = () => {
             <TextField
                 label={'Número'}
                 style={{ gridArea: 'numero' }}
-                defaultValue={''}
+                defaultValue={userAddress.numero}
                 {...register('endereco.numero')}
                 error={errors?.endereco?.numero !== undefined}
                 helperText={errors?.endereco?.numero?.message}
@@ -128,7 +130,7 @@ export const AddressForm = () => {
             <TextField
                 label={'Complemento'}
                 style={{ gridArea: 'complemento' }}
-                defaultValue={''}
+                defaultValue={userAddress.complemento}
                 {...register('endereco.complemento')}
                 error={errors?.endereco?.complemento !== undefined}
                 helperText={errors?.endereco?.complemento?.message}

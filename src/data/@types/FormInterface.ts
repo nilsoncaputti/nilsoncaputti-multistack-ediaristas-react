@@ -1,6 +1,6 @@
-import { DiariaInterface } from "./DiariaInterface";
-import { EnderecoInterface } from "./EnderecoInterface";
-import { UserInterface } from "./UserInterface";
+import { DiariaInterface } from './DiariaInterface';
+import { EnderecoInterface } from './EnderecoInterface';
+import { UserInterface } from './UserInterface';
 
 export interface NovaDiariaFormDataInterface {
     endereco: EnderecoInterface;
@@ -10,10 +10,12 @@ export interface NovaDiariaFormDataInterface {
 export interface LoginFormDataInterface {
     email: string;
     password: string;
+    //access: string;
+    //refresh: string;
 }
 
 export interface CadastroClienteFormDataInterface {
-    usuario: UserInterface
+    usuario: UserInterface;
 }
 
 export interface PagamentoFormDataInterface {
@@ -21,5 +23,5 @@ export interface PagamentoFormDataInterface {
     numero_cartao: string;
     codigo: string;
     validade: string;
-    pagamento_recusado?: boolean; 
+    pagamento_recusado?: boolean;
 }

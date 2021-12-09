@@ -1,7 +1,10 @@
+import { ApiLinksInterface } from './ApiLinksInterface';
+
 export interface UserInterface {
     id?: number;
     password_confirmation?: string;
     new_password?: string;
+    links?: ApiLinksInterface[];
     tipo_usuario: UserType;
     password?: string;
     last_login?: Date;
@@ -14,7 +17,10 @@ export interface UserInterface {
     telefone?: string;
     reputacao?: number;
     chave_pix: string;
-    token?: { access: string; refresh: string; };
+    token?: {
+        access: string;
+        refresh: string;
+    };
 }
 
 export interface UserShortInformationInterface {

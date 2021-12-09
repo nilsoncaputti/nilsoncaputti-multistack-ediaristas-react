@@ -39,7 +39,7 @@ export function useExternalServicesReducer(): ExternalServiceReducerInterface {
 
     useEffect(() => {
         ApiService.get<{ links: ApiLinksInterface[] }>('/api', {
-            headers: { Authorization: null },
+            headers: { Authorization: null || ""},
         }).then(({ data }) => {
             dispatch({
                 type: 'UPDATE',

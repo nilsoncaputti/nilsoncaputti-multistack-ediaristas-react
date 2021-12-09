@@ -1,20 +1,21 @@
-import { 
-    Button, 
-    Container, 
-    Divider, 
-    Tooltip, 
-    Typography 
+import {
+    Typography,
+    Divider,
+    Tooltip,
+    Button,
+    Container,
 } from '@material-ui/core';
 import { ServicoInterface } from 'data/@types/ServicoInterface';
 import React from 'react';
 import { AddressForm } from 'ui/components/inputs/UserForm/UserForm';
-import { Controller, useFormContext} from 'react-hook-form';
-import ToggleButtonGroup, 
-    { ToggleButton } from 'ui/components/inputs/ToggleButtonGroup/ToggleButtonGroup';
+import { Controller, useFormContext } from 'react-hook-form';
+import ToggleButtonGroup, {
+    ToggleButton,
+} from 'ui/components/inputs/ToggleButtonGroup/ToggleButtonGroup';
 import { ItemsContainer } from './_detalhes-servico.styled';
 import ItemCounter from 'ui/components/inputs/ItemCounter/ItemCounter';
-import TextField from 'ui/components/inputs/TextField/TextField';
 import TextFieldMask from 'ui/components/inputs/TextFieldMask/TextFieldMask';
+import TextField from 'ui/components/inputs/TextField/TextField';
 
 interface DetalhesServicoProps {
     servicos?: ServicoInterface[];
@@ -28,6 +29,7 @@ export const houseParts = [
         plural: 'Cozinhas',
         name: 'quantidade_cozinhas',
     },
+
     { singular: 'Sala', plural: 'Salas', name: 'quantidade_salas' },
 
     {
@@ -35,6 +37,7 @@ export const houseParts = [
         plural: 'Banheiros',
         name: 'quantidade_banheiros',
     },
+
     { singular: 'Quarto', plural: 'Quartos', name: 'quantidade_quartos' },
 
     {
@@ -42,22 +45,27 @@ export const houseParts = [
         plural: 'Quintais',
         name: 'quantidade_quintais',
     },
+    
     { singular: 'Outros', plural: 'Outros', name: 'quantidade_outros' },
 ];
 
-const DetalhesServico: React.FC<DetalhesServicoProps> = ({ 
-    servicos = [], 
-    comodos = 0, 
-    podemosAtender
+const DetalhesServico: React.FC<DetalhesServicoProps> = ({
+    servicos = [],
+    comodos = 0,
+    podemosAtender,
 }) => {
-    const {register, control, formState: {errors}} = useFormContext();
+    const {
+        register,
+        control,
+        formState: { errors },
+    } = useFormContext();
 
     return (
         <>
-            <Typography sx={{fontWeight: 'bold', pb: 2}}>
-                Qual o tipo de limpeza que você precisa?
+            <Typography sx={{ fontWeight: 'bold', pb: 2 }}>
+                Qual tipo de limpeza você precisa?
             </Typography>
-
+            
             <Controller
                 name={'faxina.servico'}
                 defaultValue={servicos[0].id}
@@ -72,8 +80,11 @@ const DetalhesServico: React.FC<DetalhesServicoProps> = ({
                     >
                         {servicos.map((servico) => (
                             <ToggleButton value={servico.id} key={servico.id}>
-                                <i className={ servico.icone || 'twf-cleaning-1' }/>
-                                {' '}
+                                <i
+                                    className={
+                                        servico.icone || 'twf-cleaning-1'
+                                    }
+                                />{' '}
                                 {servico.nome}
                             </ToggleButton>
                         ))}
@@ -81,36 +92,38 @@ const DetalhesServico: React.FC<DetalhesServicoProps> = ({
                 )}
             />
 
-            <Divider sx={{ my: 5 }}/>
-            
+            <Divider sx={{ my: 5 }} />
+
             <Typography sx={{ fontWeight: 'bold', pb: 2 }}>
                 Qual o tamanho da sua casa?
             </Typography>
 
             <ItemsContainer>
-                {houseParts.map((item) =>(
+                {houseParts.map((item) => (
                     <Controller
                         key={item.name}
-                        name={'faxina.'+item.name}
+                        name={'faxina.' + item.name}
                         defaultValue={0}
                         control={control}
-                        render={({field}) => (
+                        render={({ field }) => (
                             <ItemCounter
                                 label={item.singular}
                                 plural={item.plural}
                                 counter={field.value}
                                 onInc={() => field.onChange(field.value + 1)}
-                                onDec={() => field.onChange(Math.max(0, field.value - 1))}
+                                onDec={() =>
+                                    field.onChange(Math.max(0, field.value - 1))
+                                }
                             />
                         )}
                     />
                 ))}
             </ItemsContainer>
 
-            <Divider sx={{ my: 5 }}/>
+            <Divider sx={{ my: 5 }} />
 
             <Typography sx={{ fontWeight: 'bold', pb: 2 }}>
-                Qual data você gostaria de receber a/o diarista?
+                Qual a data você gostaria de receber a/o diarista?
             </Typography>
 
             <ItemsContainer>
@@ -124,8 +137,12 @@ const DetalhesServico: React.FC<DetalhesServicoProps> = ({
                             inputRef={ref}
                             mask={'99/99/9999'}
                             label={'Data'}
-                            error={errors?.faxina?.data_atendimento !== undefined}
-                            helperText={errors?.faxina?.data_atendimento?.message}
+                            error={
+                                errors?.faxina?.data_atendimento !== undefined
+                            }
+                            helperText={
+                                errors?.faxina?.data_atendimento?.message
+                            }
                         />
                     )}
                 />
@@ -157,10 +174,18 @@ const DetalhesServico: React.FC<DetalhesServicoProps> = ({
                                     {...inputProps}
                                     inputRef={ref}
                                     mask={'99:99'}
-                                    inputProps={{readOnly: true, disabled: true,}}
+                                    inputProps={{
+                                        readOnly: true,
+                                        disabled: true,
+                                    }}
                                     label={'Hora Término'}
-                                    error={errors?.faxina?.hora_termino !== undefined}
-                                    helperText={errors?.faxina?.hora_termino?.message}
+                                    error={
+                                        errors?.faxina?.hora_termino !==
+                                        undefined
+                                    }
+                                    helperText={
+                                        errors?.faxina?.hora_termino?.message
+                                    }
                                     fullWidth
                                 />
                             </div>
@@ -186,13 +211,12 @@ const DetalhesServico: React.FC<DetalhesServicoProps> = ({
             <Divider sx={{ my: 5 }} />
 
             <Typography sx={{ fontWeight: 'bold', pb: 2 }}>
-                Qual o tipo de limpeza que você precisa?
+                Qual endereço onde será realizada a limpeza?
             </Typography>
-
-            <AddressForm/>
+            <AddressForm />
 
             {!podemosAtender && (
-                <Typography color={'error'} sx={{pb: 2}} align={'center'}>
+                <Typography color={'error'} sx={{ pb: 2 }} align={'center'}>
                     Infelizmente ainda não atendemos na sua região
                 </Typography>
             )}

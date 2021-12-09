@@ -17,7 +17,11 @@ import TextFieldMask from 'ui/components/inputs/TextFieldMask/TextFieldMask';
 import UserInformation from 'ui/components/data-display/UserInformation/UserInformation';
 import useVerificarProfissionais from 'data/hooks/pages/useVerificarProfissionais.page';
 
-const VerificarProfissionais: React.FC = () => {
+interface VerificarProfissionaisProps {
+    onContratarProfissional: () => void;
+}
+
+const VerificarProfissionais: React.FC<VerificarProfissionaisProps> = (props) => {
     const {
         cep,
         setCep,
@@ -32,12 +36,14 @@ const VerificarProfissionais: React.FC = () => {
     return (
         <>
             <SafeEnvironment />
+
             <PageTitle
                 title={'Conheça os profissionais'}
                 subtitle={
                     'Preencha seu endereço e veja todos os profissionais da sua localidade'
                 }
             />
+
             <Container sx={{ mb: 10 }}>
                 <FormElementsContainer>
                     <TextFieldMask
@@ -47,6 +53,7 @@ const VerificarProfissionais: React.FC = () => {
                         value={cep}
                         onChange={(event) => setCep(event.target.value)}
                     />
+
                     {erro && <Typography color={'error'}>{erro}</Typography>}
 
                     <Button
@@ -74,6 +81,7 @@ const VerificarProfissionais: React.FC = () => {
                                     />
                                 ))}
                             </ProfissionaisContainer>
+
                             <Container sx={{ textAlign: 'center' }}>
                                 {diaristasRestantes > 0 && (
                                     <Typography
@@ -92,6 +100,7 @@ const VerificarProfissionais: React.FC = () => {
                                 <Button
                                     variant={'contained'}
                                     color={'secondary'}
+                                    onClick={props.onContratarProfissional}
                                     sx={{ mt: 5 }}
                                 >
                                     Contratar um(a) profissional

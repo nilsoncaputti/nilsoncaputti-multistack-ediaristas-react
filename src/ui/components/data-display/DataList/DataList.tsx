@@ -1,5 +1,5 @@
 import React from 'react';
-import {AccordionActions, AccordionDetails, AccordionSummary,} from '@material-ui/core';
+import {AccordionActions, AccordionDetails, AccordionSummary,} from '@mui/material';
 import { AccordionStyled } from './DataList.style';
 
 export interface DataListProps {

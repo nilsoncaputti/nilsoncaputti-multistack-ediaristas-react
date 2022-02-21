@@ -1,6 +1,6 @@
-import { styled } from '@material-ui/core/styles';
+import { styled } from '@mui/material/styles';
 import theme from 'ui/themes/light-theme';
-// import {  } from '@material-ui/core';
+// import {  } from '@mui/material';
 // import { BreadcrumbProps } from './Breadcrumb';
 
 export const BreadcrumbContainer = styled('ul')`

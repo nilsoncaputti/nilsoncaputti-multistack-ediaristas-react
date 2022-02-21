@@ -1,4 +1,4 @@
-import { styled } from '@material-ui/core/styles';
+import { styled } from '@mui/material/styles';
 
 export const FileContainer = styled('div')`
     position: relative;

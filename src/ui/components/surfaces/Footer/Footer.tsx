@@ -1,4 +1,4 @@
-import { Box, List, Typography } from '@material-ui/core';
+import { Box, List, Typography } from '@mui/material';
 import Link from 'ui/components/navigation/Link/Link';
 import {
     AppList,

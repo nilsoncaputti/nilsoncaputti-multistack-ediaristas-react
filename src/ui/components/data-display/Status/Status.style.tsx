@@ -1,5 +1,5 @@
-import { styled } from '@material-ui/core/styles';
-import { Typography } from '@material-ui/core';
+import { styled } from '@mui/material/styles';
+import { Typography } from '@mui/material';
 
 export const StatusStyled = styled(Typography)`
     display: inline-block;

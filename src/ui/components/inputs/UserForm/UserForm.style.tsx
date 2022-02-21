@@ -1,6 +1,5 @@
-import { styled } from '@material-ui/core/styles';
-import { Container } from '@material-ui/core';
-// import { UserFormProps } from './UserForm';
+import { styled } from '@mui/material/styles';
+import { Container } from '@mui/material';
 
 export const FormContainerStyled = styled(Container)`
     ${({ theme }) => theme.breakpoints.down('md')} {
@@ -102,6 +101,15 @@ export const AddressData = styled(BaseGrid)`
             'numero'
             'complemento';
     }
+`;
+
+export const FinancialData = styled(BaseGrid)`
+    grid-template-columns: 1fr;
+`;
+
+export const CitiesSelection = styled(BaseGrid)`
+    grid-template-columns: 1fr;
+    grid-template-areas: 'busca-cidade';
 `;
 
 export const PictureSelection = styled(BaseGrid)`

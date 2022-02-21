@@ -1,6 +1,6 @@
-import { Avatar, Rating, Box, Theme } from '@material-ui/core';
-import { styled } from '@material-ui/core/styles';
-// import {  } from '@material-ui/core';
+import { Avatar, Rating, Box, Theme } from '@mui/material';
+import { styled } from '@mui/material/styles';
+// import {  } from '@mui/material';
 // import { UserInformationProps } from './UserInformation';
 
 // export const Component = styled('div')<UserInformationProps>`

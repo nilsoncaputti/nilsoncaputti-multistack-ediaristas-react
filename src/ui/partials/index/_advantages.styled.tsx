@@ -3,8 +3,8 @@ import {
     ListItemText, 
     Avatar,
     Divider, 
-} from '@material-ui/core';
-import { styled } from '@material-ui/core/styles';
+} from '@mui/material';
+import { styled } from '@mui/material/styles';
 
 export const GradientBackground = styled('section')`
     background-color: red;

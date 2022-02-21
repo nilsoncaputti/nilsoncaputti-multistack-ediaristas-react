@@ -1,4 +1,4 @@
-import { styled } from '@material-ui/core/styles';
+import { styled } from '@mui/material/styles';
 
 export const SideInformationContainer = styled('aside')`
     background-color: ${({ theme }) => theme.palette.grey[50]};

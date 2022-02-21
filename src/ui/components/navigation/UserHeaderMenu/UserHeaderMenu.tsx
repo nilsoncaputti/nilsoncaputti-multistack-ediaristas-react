@@ -1,4 +1,4 @@
-import { Divider } from '@material-ui/core';
+import { Divider } from '@mui/material';
 import { UserInterface } from 'data/@types/UserInterface';
 import React, { useRef } from 'react';
 import UserProfileAvatar from 'ui/components/data-display/UserProfileAvatar/UserProfileAvatar';

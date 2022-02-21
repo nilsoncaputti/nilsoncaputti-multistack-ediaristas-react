@@ -1,4 +1,4 @@
-import { ButtonProps, Link as MuiLink, LinkProps as MuiLinkProps } from '@material-ui/core';
+import { ButtonProps, Link as MuiLink, LinkProps as MuiLinkProps } from '@mui/material';
 import NextLink, { LinkProps as NextLinkProps } from 'next/link';
 import Router from 'next/router';
 import React from "react";

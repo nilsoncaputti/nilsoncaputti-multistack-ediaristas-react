@@ -1,5 +1,5 @@
 import { ThemeProvider as EmotionThemeProvider } from '@emotion/react';
-import { ThemeProvider } from '@material-ui/core/styles';
+import { ThemeProvider } from '@mui/material/styles';
 import theme from './theme';
 
 const StoryThemeProvider = (storyFn: any) => (

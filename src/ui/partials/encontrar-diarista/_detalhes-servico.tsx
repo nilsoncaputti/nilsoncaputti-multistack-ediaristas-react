@@ -4,7 +4,7 @@ import {
     Tooltip,
     Button,
     Container,
-} from '@material-ui/core';
+} from '@mui/material';
 import { ServicoInterface } from 'data/@types/ServicoInterface';
 import React from 'react';
 import { AddressForm } from 'ui/components/inputs/UserForm/UserForm';

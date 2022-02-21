@@ -1,5 +1,5 @@
-import { styled } from '@material-ui/core/styles';
-import { ToggleButtonGroup, ToggleButton } from '@material-ui/core';
+import { styled } from '@mui/material/styles';
+import { ToggleButtonGroup, ToggleButton } from '@mui/material';
 // import { ToggleButtonGroupProps } from './ToggleButtonGroup';
 
 export const ToggleButtonGroupStyled = styled(ToggleButtonGroup)`

@@ -1,8 +1,8 @@
-import { OutlinedTextFieldProps } from '@material-ui/core';
+import { OutlinedTextFieldProps } from '@mui/material';
 import React from 'react';
 import InputMask from 'react-input-mask';
 import TextField from '../TextField/TextField';
-// import { } from '@material-ui/core';
+// import { } from '@mui/material';
 // import { Component } from './TextFieldMask.style';
 
 export interface TextFieldMaskProps extends Omit<OutlinedTextFieldProps, 'variant'> {

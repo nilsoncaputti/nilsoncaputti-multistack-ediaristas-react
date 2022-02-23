@@ -1,146 +1,191 @@
-import { Button, Container, Typography } from '@mui/material';
-import { DiariaStatus } from 'data/@types/DiariaInterface';
-import useMinhasDiarias from 'data/hooks/pages/diarias/useMinhasDiarias.page';
-import { DiariaService } from 'data/services/DiariaService';
-import { TextFormatService } from 'data/services/TextFormatService';
 import React from 'react';
-import DataList from 'ui/components/data-display/DataList/DataList';
-import PageTitle from 'ui/components/data-display/PageTitle/PageTitle';
-import Status from 'ui/components/data-display/Status/Status';
-import Table, { TableCell, TablePagination, TableRow } from 'ui/components/data-display/Table/Table';
 import Link from 'ui/components/navigation/Link/Link';
+import { ConfirmDialog } from './_minhas-diarias-dialogs';
+import { DiariaService } from 'data/services/DiariaService';
+import { Button, Container, Typography } from '@mui/material';
+import Status from 'ui/components/data-display/Status/Status';
+import DataList from 'ui/components/data-display/DataList/DataList';
+import { TextFormatService } from 'data/services/TextFormatService';
+import PageTitle from 'ui/components/data-display/PageTitle/PageTitle';
+import { DiariaInterface, DiariaStatus } from 'data/@types/DiariaInterface';
+import useMinhasDiarias from 'data/hooks/pages/diarias/useMinhasDiarias.page';
+import Table, {
+    TableCell,
+    TablePagination,
+    TableRow,
+} from 'ui/components/data-display/Table/Table';
 
 // import { Component } from './_minhas-diarias.styled';
 
 const MinhasDiarias: React.FC = () => {
-    const { 
-        filterdData,
+    const {
+        filteredData,
         currentPage,
         setCurrentPage,
         totalPages,
         itemsPerPage,
         isMobile,
         podeVisualizar,
+        podeConfirmar,
+        diariaConfirmar,
+        setDiariaConfirmar,
+        confirmarDiaria,
     } = useMinhasDiarias();
 
     return (
         <>
-            <Container sx={{ mb: 2, p: 0}}> 
-                <PageTitle title={'Minhas diárias'}/>
-                {filterdData.length > 0 ? (
-                        isMobile ? (
-                            <>
-                                {filterdData.map(item => (
-                                    <DataList 
-                                        key={item.id}
-                                        header={
-                                            <>
-                                                Data:{''} 
+            <Container sx={{ mb: 5, p: 0 }}>
+                <PageTitle title={'Minhas diárias'} />
+                {filteredData.length > 0 ? (
+                    isMobile ? (
+                        <>
+                            {filteredData.map((item) => (
+                                <DataList
+                                    key={item.id}
+                                    header={
+                                        <>
+                                            Data:{' '}
+                                            {TextFormatService.reverseDate(
+                                                item.data_atendimento as string
+                                            )}
+                                            <br />
+                                            {item.nome_servico}
+                                        </>
+                                    }
+                                    body={
+                                        <>
+                                            Status:{' '}
+                                            {
+                                                DiariaService.getStatus(
+                                                    item.status as DiariaStatus
+                                                ).label
+                                            }
+                                            <br />
+                                            Valor:{' '}
+                                            {TextFormatService.currency(
+                                                item.preco
+                                            )}
+                                        </>
+                                    }
+                                    actions={
+                                        <>
+                                            {podeVisualizar(item) && (
+                                                <Button
+                                                    component={Link}
+                                                    href={`?id=${item.id}`}
+                                                    color={'inherit'}
+                                                    variant={'outlined'}
+                                                >
+                                                    Detalhes
+                                                </Button>
+                                            )}
+                                            {podeConfirmar(item) && (
+                                                <Button
+                                                    color={'success'}
+                                                    variant={'contained'}
+                                                    onClick={() =>
+                                                        setDiariaConfirmar(item)
+                                                    }
+                                                >
+                                                    Confirmar Presença
+                                                </Button>
+                                            )}
+                                        </>
+                                    }
+                                />
+                            ))}
+                        </>
+                    ) : (
+                        <>
+                            <Table
+                                header={[
+                                    'Data',
+                                    'Status',
+                                    'Tipo de Serviço',
+                                    'Valor',
+                                    '',
+                                    '',
+                                ]}
+                                data={filteredData}
+                                itemsPerPage={itemsPerPage}
+                                currentPage={currentPage}
+                                rowElement={(item, index) => (
+                                    <TableRow key={index}>
+                                        <TableCell>
+                                            <strong>
                                                 {TextFormatService.reverseDate(
                                                     item.data_atendimento as string
                                                 )}
-
-                                                <br/>
-
-                                                {item.nome_servico}
-                                            </>
-                                        }
-
-                                        body={
-                                            <>
-                                                Status: {' '} {
-                                                    DiariaService.getStatus(item.status as DiariaStatus).label 
-                                                }   
-
-                                                <br />
-
-                                                Valor: {TextFormatService.currency(item.preco)}
-                                            </>
-                                        }
-
-                                        actions={
-                                            <>
-                                                {podeVisualizar(item) && (
-                                                    <Button
-                                                        component={Link}
-                                                        href={`?id=${item.id}`}
-                                                        color={'inherit'}
-                                                        variant={'outlined'}
-                                                    >
-                                                        Detalhes
-                                                    </Button>
-                                                )}
-
-                                            </>
-                                        }
-                                    />
-                                ))}
-                            </>
-                        ) : (
-                            <>
-                                <Table
-                                    header={[
-                                        'Data',
-                                        'Status',
-                                        'Tipo de Serviço',
-                                        'Valor',
-                                        '',
-                                        '',
-                                    ]}
-
-                                    data={filterdData}
-                                    itemsPerPage={itemsPerPage}
-                                    currentPage={currentPage}
-                                    rowElement={(item, index) => (
-                                        <TableRow key={index}>
-                                            <TableCell>
-                                                <strong>
-                                                    {TextFormatService.reverseDate (
-                                                        item.data_atendimento as string
-                                                    )}
-                                                </strong>
-                                            </TableCell>
-
-                                            <TableCell>
-                                                <Status color={DiariaService.getStatus(item.status as DiariaStatus).color}>
-                                                    {DiariaService.getStatus(item.status as DiariaStatus).label}
-                                                </Status>
-                                            </TableCell>
-
-                                            <TableCell>
-                                                {item.nome_servico}
-                                            </TableCell>
-
-                                            <TableCell>
-                                                {TextFormatService.currency (item.preco)}
-                                            </TableCell>
-
-                                            <TableCell>
-                                                {podeVisualizar(item) && (
-                                                    <Link href={`?id=${item.id}`}>
-                                                        Detalhes
-                                                    </Link>
-                                                )} 
-                                            </TableCell>
-                                        </TableRow>
-                                    )}
-                                />
-
-                                <TablePagination 
-                                    count={totalPages}
-                                    page={currentPage}
-                                    onChange={(_event, nextPage) => {
-                                        setCurrentPage(nextPage);
-                                    }}
-                                />
-                            </>
-                        )
-                    ) : 
-                        <Typography align={'center'}>
-                            Nenhuma diária ainda
-                        </Typography>
-                }
+                                            </strong>
+                                        </TableCell>
+                                        <TableCell>
+                                            <Status
+                                                color={
+                                                    DiariaService.getStatus(
+                                                        item.status as DiariaStatus
+                                                    ).color
+                                                }
+                                            >
+                                                {
+                                                    DiariaService.getStatus(
+                                                        item.status as DiariaStatus
+                                                    ).label
+                                                }
+                                            </Status>
+                                        </TableCell>
+                                        <TableCell>
+                                            {item.nome_servico}
+                                        </TableCell>
+                                        <TableCell>
+                                            {TextFormatService.currency(
+                                                item.preco
+                                            )}
+                                        </TableCell>
+                                        <TableCell>
+                                            {podeVisualizar(item) && (
+                                                <Link href={`?id=${item.id}`}>
+                                                    Detalhes
+                                                </Link>
+                                            )}
+                                        </TableCell>
+                                        <TableCell>
+                                            {podeConfirmar(item) && (
+                                                <Button
+                                                    color={'success'}
+                                                    onClick={() =>
+                                                        setDiariaConfirmar(item)
+                                                    }
+                                                >
+                                                    Confirmar Presença
+                                                </Button>
+                                            )}
+                                        </TableCell>
+                                    </TableRow>
+                                )}
+                            />
+                            <TablePagination
+                                count={totalPages}
+                                page={currentPage}
+                                onChange={(_event, nextPage) => {
+                                    setCurrentPage(nextPage);
+                                }}
+                            />
+                        </>
+                    )
+                ) : (
+                    <Typography align={'center'}>
+                        Nenhuma diária ainda
+                    </Typography>
+                )}
             </Container>
+
+            {diariaConfirmar.id && (
+                <ConfirmDialog
+                    diaria={diariaConfirmar}
+                    onConfirm={confirmarDiaria}
+                    onCancel={() => setDiariaConfirmar({} as DiariaInterface)}
+                />
+            )}
         </>
     );
 };

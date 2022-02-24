@@ -10503,11 +10503,6 @@
   "resolved" "https://registry.npmjs.org/p-try/-/p-try-2.2.0.tgz"
   "version" "2.2.0"
 
-"pagarme@^4.20.0":
-  "integrity" "sha512-publYbudSsO/noEArIx3W0BipGd3vVbyCa/TYEHzHsrV4R8JVBXYja5cxebwsomMjga8c8UEXND9VhXw+qb6Fw=="
-  "resolved" "https://registry.npmjs.org/pagarme/-/pagarme-4.20.0.tgz"
-  "version" "4.20.0"
-
 "pako@~1.0.5":
   "integrity" "sha512-4hLB8Py4zZce5s4yd9XzopqwVv/yGNhV1Bl8NTmCq1763HeK2+EwVTv+leGeL13Dnh2wfbqowVPXCIO0z4taYw=="
   "resolved" "https://registry.npmjs.org/pako/-/pako-1.0.11.tgz"

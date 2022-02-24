@@ -1,12 +1,12 @@
 import React from 'react';
 import Link from 'ui/components/navigation/Link/Link';
-import { ConfirmDialog } from './_minhas-diarias-dialogs';
 import { DiariaService } from 'data/services/DiariaService';
 import { Button, Container, Typography } from '@mui/material';
 import Status from 'ui/components/data-display/Status/Status';
-import DataList from 'ui/components/data-display/DataList/DataList';
 import { TextFormatService } from 'data/services/TextFormatService';
+import DataList from 'ui/components/data-display/DataList/DataList';
 import PageTitle from 'ui/components/data-display/PageTitle/PageTitle';
+import { ConfirmDialog, RatingDialog } from './_minhas-diarias-dialogs';
 import { DiariaInterface, DiariaStatus } from 'data/@types/DiariaInterface';
 import useMinhasDiarias from 'data/hooks/pages/diarias/useMinhasDiarias.page';
 import Table, {
@@ -14,8 +14,6 @@ import Table, {
     TablePagination,
     TableRow,
 } from 'ui/components/data-display/Table/Table';
-
-// import { Component } from './_minhas-diarias.styled';
 
 const MinhasDiarias: React.FC = () => {
     const {
@@ -30,6 +28,10 @@ const MinhasDiarias: React.FC = () => {
         diariaConfirmar,
         setDiariaConfirmar,
         confirmarDiaria,
+        diariaAvaliar,
+        setDiariaAvaliar,
+        podeAvaliar,
+        avaliarDiaria,
     } = useMinhasDiarias();
 
     return (
@@ -52,6 +54,7 @@ const MinhasDiarias: React.FC = () => {
                                             {item.nome_servico}
                                         </>
                                     }
+
                                     body={
                                         <>
                                             Status:{' '}
@@ -67,6 +70,7 @@ const MinhasDiarias: React.FC = () => {
                                             )}
                                         </>
                                     }
+
                                     actions={
                                         <>
                                             {podeVisualizar(item) && (
@@ -79,6 +83,7 @@ const MinhasDiarias: React.FC = () => {
                                                     Detalhes
                                                 </Button>
                                             )}
+
                                             {podeConfirmar(item) && (
                                                 <Button
                                                     color={'success'}
@@ -90,6 +95,18 @@ const MinhasDiarias: React.FC = () => {
                                                     Confirmar Presença
                                                 </Button>
                                             )}
+
+                                            {podeAvaliar(item) && (
+                                                <Button
+                                                    color={'success'}
+                                                    variant={'contained'}
+                                                    onClick={() =>
+                                                        setDiariaAvaliar(item)
+                                                    }
+                                                >
+                                                    Avaliar
+                                                </Button>
+                                            )}
                                         </>
                                     }
                                 />
@@ -98,14 +115,7 @@ const MinhasDiarias: React.FC = () => {
                     ) : (
                         <>
                             <Table
-                                header={[
-                                    'Data',
-                                    'Status',
-                                    'Tipo de Serviço',
-                                    'Valor',
-                                    '',
-                                    '',
-                                ]}
+                                header={['Data', 'Status', 'Tipo de Serviço', 'Valor', '', '']}
                                 data={filteredData}
                                 itemsPerPage={itemsPerPage}
                                 currentPage={currentPage}
@@ -118,6 +128,7 @@ const MinhasDiarias: React.FC = () => {
                                                 )}
                                             </strong>
                                         </TableCell>
+
                                         <TableCell>
                                             <Status
                                                 color={
@@ -133,14 +144,17 @@ const MinhasDiarias: React.FC = () => {
                                                 }
                                             </Status>
                                         </TableCell>
+
                                         <TableCell>
                                             {item.nome_servico}
                                         </TableCell>
+
                                         <TableCell>
                                             {TextFormatService.currency(
                                                 item.preco
                                             )}
                                         </TableCell>
+
                                         <TableCell>
                                             {podeVisualizar(item) && (
                                                 <Link href={`?id=${item.id}`}>
@@ -148,6 +162,7 @@ const MinhasDiarias: React.FC = () => {
                                                 </Link>
                                             )}
                                         </TableCell>
+
                                         <TableCell>
                                             {podeConfirmar(item) && (
                                                 <Button
@@ -157,6 +172,17 @@ const MinhasDiarias: React.FC = () => {
                                                     }
                                                 >
                                                     Confirmar Presença
+                                                </Button>
+                                            )}
+                                            
+                                            {podeAvaliar(item) && (
+                                                <Button
+                                                    color={'success'}
+                                                    onClick={() =>
+                                                        setDiariaAvaliar(item)
+                                                    }
+                                                >
+                                                    Avaliar
                                                 </Button>
                                             )}
                                         </TableCell>
@@ -184,6 +210,14 @@ const MinhasDiarias: React.FC = () => {
                     diaria={diariaConfirmar}
                     onConfirm={confirmarDiaria}
                     onCancel={() => setDiariaConfirmar({} as DiariaInterface)}
+                />
+            )}
+
+            {diariaAvaliar.id && (
+                <RatingDialog
+                    diaria={diariaAvaliar}
+                    onConfirm={avaliarDiaria}
+                    onCancel={() => setDiariaAvaliar({} as DiariaInterface)}
                 />
             )}
         </>

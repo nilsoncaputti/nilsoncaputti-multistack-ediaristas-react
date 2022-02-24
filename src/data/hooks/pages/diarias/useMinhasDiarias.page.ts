@@ -1,10 +1,10 @@
 import { mutate } from 'swr';
+import { useContext, useState } from 'react';
 import useIsMobile from 'data/hooks/useIsMobile';
 import usePagination from 'data/hooks/usePaginations.hook';
 import { DiariaContext } from 'data/contexts/DiariasContext';
 import { DiariaInterface } from 'data/@types/DiariaInterface';
 import { ApiServiceHateoas, linksResolver } from 'data/services/ApiService';
-import { useContext, useState } from 'react';
 
 export default function useMinhasDiarias() {
     const isMobile = useIsMobile(),
@@ -17,7 +17,8 @@ export default function useMinhasDiarias() {
             totalPages,
             itemsPerPage,
         } = usePagination(diarias, 5),
-        [diariaConfirmar, setDiariaConfirmar] = useState({} as DiariaInterface);
+        [diariaConfirmar, setDiariaConfirmar] = useState({} as DiariaInterface),
+        [diariaAvaliar, setDiariaAvaliar] = useState({} as DiariaInterface);
 
     function podeVisualizar(diaria: DiariaInterface): boolean {
         return linksResolver(diaria.links, 'self') !== undefined;
@@ -25,6 +26,10 @@ export default function useMinhasDiarias() {
 
     function podeConfirmar(diaria: DiariaInterface): boolean {
         return linksResolver(diaria.links, 'confirmar_diarista') !== undefined;
+    }
+
+    function podeAvaliar(diaria: DiariaInterface): boolean {
+        return linksResolver(diaria.links, 'avaliar_diaria') !== undefined;
     }
 
     async function confirmarDiaria(diaria: DiariaInterface) {
@@ -39,6 +44,18 @@ export default function useMinhasDiarias() {
                 } catch (error) { }
             }
         );
+    }
+
+    async function avaliarDiaria( diaria: DiariaInterface, avaliacao: { descricao: string; nota: number }) {
+        ApiServiceHateoas(diaria.links, 'avaliar_diaria', async (request) => {
+            try {
+                await request({
+                    data: avaliacao,
+                });
+                setDiariaAvaliar({} as DiariaInterface);
+                atualizarDiarias();
+            } catch (error) { }
+        });
     }
 
     function atualizarDiarias() {
@@ -57,5 +74,9 @@ export default function useMinhasDiarias() {
         diariaConfirmar,
         setDiariaConfirmar,
         confirmarDiaria,
+        diariaAvaliar,
+        setDiariaAvaliar,
+        podeAvaliar,
+        avaliarDiaria,
     };
 }

@@ -1,3 +1,5 @@
 {
-    
+    "require": {
+        "pagarme/pagarme-php": "^4.1"
+    }
 }

@@ -1,4 +1,4 @@
-import  pagarme, { CardInterface, CardValidateInterface } from "pagarme";
+import pagarme, { CardInterface, CardValidateInterface } from 'pagarme';
 
 const encryption_key = process.env.NEXT_PUBLIC_PAGARME_ENCRYPTION_KEY;
 
